@@ -53,8 +53,11 @@ def turn(board)
   puts "Please enter 1-9:"
   input = gets
   index = input_to_index(input)
-  if valid_move?(board, index) == true
+  if valid_move?(board, index) == true && current_player(board) == "X"
     move(board, index, "X")
+    display_board(board)
+  elsif valid_move?(board, index) == true && current_player(board) == "O"
+    move(board, index, "O")
     display_board(board)
   else
     puts("Please enter a valid number")
@@ -140,4 +143,18 @@ def winner(board)
     end
   end
   return nil
+end
+
+def play(board)
+  until over?(board) == true
+  turn(board)
+  end
+
+  if draw?(board) == true
+    puts("Cats Game!")
+  elsif winner(board) == "X"
+    puts("Congratulations X!")
+  elsif winner(board) == "O"
+    puts("Congratulations O!")
+  end
 end
